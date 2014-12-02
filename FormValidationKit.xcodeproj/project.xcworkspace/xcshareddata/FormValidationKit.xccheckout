@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>339A18FD-927C-4055-B533-BD6709C050EF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FormValidationKit</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5E3180544E086C1152CDB6FEFB81A6472662397B</key>
+		<string>https://github.com/iAmNaz/FormValidationKit.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FormValidationKit.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5E3180544E086C1152CDB6FEFB81A6472662397B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/iAmNaz/FormValidationKit.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5E3180544E086C1152CDB6FEFB81A6472662397B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5E3180544E086C1152CDB6FEFB81A6472662397B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>FormValidationKit</string>
+		</dict>
+	</array>
+</dict>
+</plist>
