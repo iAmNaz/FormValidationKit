@@ -7,7 +7,7 @@ A form validation framework.
 Apart from the built in validation rules you can create your own validation rules by implementing the FieldValidator protocol. 
 
 Example implementation:
-'''
+```swift
 import UIKit
 import FormValidationKit
 
@@ -74,4 +74,4 @@ class ViewController: UIViewController, FormValidationDelegate, FieldValidatorDe
         // Dispose of any resources that can be recreated.
     }
 }
-'''
+```
