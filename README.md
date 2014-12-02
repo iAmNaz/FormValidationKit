@@ -6,6 +6,8 @@ A form validation framework.
 
 Apart from the built in validation rules you can create your own validation rules by implementing the FieldValidator protocol. 
 
+Before you could use it you need to build for either an iOS device or simulator. You can read about a detailed tutorial on how to build frameworks here: http://locomoviles.com/ios-tutorials/create-ios-cocoa-touch-framework-using-xcode/
+
 Example implementation:
 ```swift
 import UIKit
