@@ -68,10 +68,5 @@ class ViewController: UIViewController, FormValidationDelegate, FieldValidatorDe
     func didFailFormValidation(form: FormValidation) {
         println(__FUNCTION__)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }
 ```
