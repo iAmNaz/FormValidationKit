@@ -7,13 +7,13 @@ A form validation framework.
 Apart from the built in validation rules you can create your own validation rules by implementing the FieldValidator protocol. 
 
 Example implementation:
-
+'''
 import UIKit
 import FormValidationKit
 
 class ViewController: UIViewController, FormValidationDelegate, FieldValidatorDelegate {
+    
     var formValidator: FormValidator?
-
     var usernameValidator : FieldValidator?
     var emailValidator : FieldValidator?
     
@@ -74,3 +74,4 @@ class ViewController: UIViewController, FormValidationDelegate, FieldValidatorDe
         // Dispose of any resources that can be recreated.
     }
 }
+'''
