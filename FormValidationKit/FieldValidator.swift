@@ -10,25 +10,25 @@ import UIKit
 
 //An object to validate a field
 public class FieldValidator: NSObject {
-    var iterator: ValidatorIterator?
-    var validators : Array<Validator>?
-    var validator : Validator?
-    var evaluatedValue: AnyObject?
-    var fieldView: NSObject?
-    var nextFieldValidator: FieldValidator?
-    var formValidator: FormValidator?
-    var validationErrorHint: ValidationError?
-    var errorHints: Array<String>?
+    private var iterator: ValidatorIterator?
+    private var validators : Array<Validator>?
+    private var validator : Validator?
+    private var evaluatedValue: AnyObject?
+    private var fieldView: NSObject?
+    private var nextFieldValidator: FieldValidator?
+    private var formValidator: FormValidator?
+    private var validationErrorHint: ValidationError?
+    private var errorHints: Array<String>?
+    private var fieldInput : () -> AnyObject?
     public var delegate: FieldValidatorDelegate?
-    public var fieldInput : () -> AnyObject?
     
     
-    public init(inputValue: () -> AnyObject, rules: Array<Validator>, nextValidator: FieldValidator?,
-        form: FormValidator) {
+    public init(rules: Array<Validator>, addValidator: FieldValidator?,
+        form: FormValidator, inputValue: () -> AnyObject) {
         //super.init()
         iterator = ValidatorIterator(listItems: rules)
         fieldInput = inputValue
-        nextFieldValidator = nextValidator
+        nextFieldValidator = addValidator
         formValidator = form
         errorHints = Array<String>()
     }
