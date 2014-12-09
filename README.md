@@ -19,6 +19,7 @@ class ViewController: UIViewController, FormValidationDelegate, FieldValidatorDe
     var usernameValidator : FieldValidator?
     var emailValidator : FieldValidator?
     
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var usernameTf: UITextField!
     @IBOutlet weak var emailTf: UITextField!
 
@@ -34,15 +35,14 @@ class ViewController: UIViewController, FormValidationDelegate, FieldValidatorDe
         
         //Create field validators
         //Set nil to first field validator
-        usernameValidator = FieldValidator(inputValue: { () -> AnyObject in
+        usernameValidator = FieldValidator(rules: [Required(validationError: ValidationError(hint: "Field is required"))], addValidator: nil, form: formValidator!, inputValue: { () -> AnyObject in
             return self.usernameTf.text
-        }, rules: [Required(validationError: ValidationError(hint: "Field is required"))], nextValidator: nil, form: formValidator!)
+        })
         usernameValidator!.delegate = self
         
-        
-        emailValidator = FieldValidator(inputValue: { () -> AnyObject in
+        emailValidator = FieldValidator(rules: [Email(validationError: ValidationError(hint: "Proper email format")), Required(validationError: ValidationError(hint: "Field is required"))], addValidator: usernameValidator!, form: formValidator!, inputValue: { () -> AnyObject in
             return self.emailTf.text
-        }, rules: [Email(validationError: ValidationError(hint: "Proper email format"))], nextValidator: usernameValidator!, form: formValidator!)
+        })
         emailValidator!.delegate = self
         
         formValidator?.initialValidator = emailValidator!
@@ -53,10 +53,16 @@ class ViewController: UIViewController, FormValidationDelegate, FieldValidatorDe
     func didEvaluateField(field: FieldValidator, errors: Array<String>, form: FormValidator) {
         switch field {
         case usernameValidator!:
-            println("Username field error")
+            if errors.count > 0 {
+                println("Username field error")
+                errorString += "Username field error \n"
+            }
             break;
         case emailValidator!:
-            println("Username field error")
+            if errors.count > 0 {
+                println("Email field error")
+                errorString += "Email field error \n"
+            }
         default:
             println("Field error")
         }
@@ -65,10 +71,11 @@ class ViewController: UIViewController, FormValidationDelegate, FieldValidatorDe
     //form delegate methods
     func didPassFormValidation(form: FormValidation) {
         println(__FUNCTION__)
+        errorLabel.text = ""
     }
     
     func didFailFormValidation(form: FormValidation) {
-        println(__FUNCTION__)
+        errorLabel.text = errorString
     }
 }
 ```
