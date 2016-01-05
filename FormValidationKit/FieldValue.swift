@@ -13,11 +13,11 @@ public class FieldValue: NSObject {
         var text : String?
         if object.respondsToSelector(Selector("text")) {
             if object is UITextField {
-                text = (object as UITextField).text
+                text = (object as! UITextField).text
             }else if object is UITextView {
-                text = (object as UITextView).text
+                text = (object as! UITextView).text
             } else if object is UILabel {
-                text = (object as UILabel).text
+                text = (object as! UILabel).text
             }
         }
         return text!

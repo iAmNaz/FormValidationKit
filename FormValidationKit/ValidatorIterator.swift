@@ -18,7 +18,7 @@ public class ValidatorIterator: NSObject, IteratorNZ {
     }
     
     func next() -> Validator {
-        var object = mutableList?[position]
+        let object = mutableList?[position]
         position++;
         return object!;
     }

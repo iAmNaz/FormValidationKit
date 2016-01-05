@@ -22,9 +22,9 @@ public class StringUtility: NSObject {
 public class RegextUtility: NSObject {
     public class func isValidFormat(regEx:String, str:String) -> Bool {
         let emailRegEx = regEx
-        var emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        let result = emailTest?.evaluateWithObject(str)
-        return result!
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let result = emailTest.evaluateWithObject(str)
+        return result
     }
 }
 
@@ -40,7 +40,7 @@ public class NotRequired: NSObject, Validator {
     }
     
     public func validationError() {
-        println("Field is required")
+        print("Field is required")
     }
 }
 
@@ -52,11 +52,11 @@ public class Required: NSObject, Validator {
     }
     
     public func validate(value: AnyObject) -> Bool {
-        return StringUtility.stringIsNotEmpty(value as String)
+        return StringUtility.stringIsNotEmpty(value as! String)
     }
     
     public func validationError() {
-        println("Field is required")
+        print("Field is required")
     }
 }
 
@@ -68,18 +68,18 @@ public class Email: NSObject, Validator {
     }
     
     public func validate(value: AnyObject) -> Bool {
-        var string : String = value as String
+        let string : String = value as! String
         
         //only validate if the field is not empty
         if string.isEmpty {
             return true
         }else{
-            return RegextUtility.isValidFormat("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}", str: value as String)
+            return RegextUtility.isValidFormat("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}", str: value as! String)
         }
     }
 
     public func validationError() {
-        println("Text is not E-mail")
+        print("Text is not E-mail")
     }
 }
 
@@ -94,11 +94,11 @@ public class MatchesField: NSObject, Validator {
     }
     
     public func validate(value: AnyObject) -> Bool {
-        return value as String == (compareWithField!.value() as String) && StringUtility.stringIsNotEmpty(value as String)
+        return value as! String == (compareWithField!.value() as! String) && StringUtility.stringIsNotEmpty(value as! String)
     }
     
     public func validationError() {
-        println("Fields do not match")
+        print("Fields do not match")
     }
 }
 
@@ -113,16 +113,16 @@ public class MinimumLength: NSObject, Validator {
     }
     
     public func validate(value: AnyObject) -> Bool {
-        var string : String = value as String
+        let string : String = value as! String
         if string.isEmpty {
             return true
         }else{
-            return countElements(value as String) >= minLength
+            return string.characters.count >= minLength
         }
     }
     
     public func validationError() {
-        println("Minimum length not met")
+        print("Minimum length not met")
     }
 }
 
@@ -136,16 +136,16 @@ public class MaximumLength: NSObject, Validator {
     }
     
     public func validate(value: AnyObject) -> Bool {
-        var string : String = value as String
+        let string : String = value as! String
         if string.isEmpty {
             return true
         }else{
-            return countElements(value as String) <= maxLength
+            return string.characters.count <= maxLength
         }
     }
     
     public func validationError() {
-        println("Max length not met")
+        print("Max length not met")
     }
 }
 
@@ -158,11 +158,11 @@ public class ExactLength: NSObject, Validator  {
     }
     
     public func validate(value: AnyObject) -> Bool {
-        return countElements(value as String) == exactLength
+        return (value as! String).characters.count == exactLength
     }
     
     public func validationError() {
-        println("Length not as expected")
+        print("Length not as expected")
     }
 }
 
@@ -175,11 +175,11 @@ public class GreaterThan: NSObject, Validator  {
     }
     
     public func validate(value: AnyObject) -> Bool {
-        return (value as String).toInt() > greaterVal
+        return Int(value as! String)  > greaterVal!
     }
     
     public func validationError() {
-        println("Value not greater than number")
+        print("Value not greater than number")
     }
 }
 
@@ -192,11 +192,11 @@ public class LessThan: NSObject, Validator  {
     }
     
     public func validate(value: AnyObject) -> Bool {
-        return (value as String).toInt() < lessVal
+        return Int(value as! String) < lessVal
     }
     
     public func validationError() {
-        println("Value not less than number")
+        print("Value not less than number")
     }
 }
 
@@ -208,10 +208,10 @@ public class Numeric: NSObject, Validator  {
     }
     
     public func validate(value: AnyObject) -> Bool {
-        return (value as String).toInt() != nil
+        return Int(value as! String) != nil
     }
     public func validationError() {
-        println("Value is not numeric")
+        print("Value is not numeric")
     }
 }
 
@@ -223,12 +223,12 @@ public class Decimal: NSObject, Validator  {
     }
     
     public func validate(value: AnyObject) -> Bool {
-        var str = value as String
+        let str = value as! String
         let scanner = NSScanner(string: str)
         return scanner.scanFloat(nil)
     }
     
     public func validationError() {
-        println("Value is not a float")
+        print("Value is not a coke float")
     }
 }
