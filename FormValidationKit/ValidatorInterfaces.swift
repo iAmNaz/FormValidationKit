@@ -13,7 +13,7 @@ public struct ValidationError {
 }
 
 public protocol FieldValidatorDelegate {
-    func didEvaluateField(field: FieldValidator, errors: Array<String>, form: FormValidator)
+    func didEvaluateField(_ field: FieldValidator, errors: Array<String>, form: FormValidator)
 }
 
 @objc public protocol FieldValidationStates{
@@ -37,11 +37,11 @@ public protocol FieldValidatorObject {
 
 public protocol Validator {
     var error: ValidationError? {get set}
-    func validate(value: AnyObject) ->Bool
+    func validate(_ value: AnyObject) ->Bool
     func validationError()
 }
 
 public protocol FormValidationDelegate {
-    func didPassFormValidation(form: FormValidation)
-    func didFailFormValidation(form: FormValidation)
+    func didPassFormValidation(_ form: FormValidation)
+    func didFailFormValidation(_ form: FormValidation)
 }

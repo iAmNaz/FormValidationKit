@@ -8,10 +8,10 @@
 
 import UIKit
 
-public class FieldValue: NSObject {
-    public class func textValue(object: NSObject) -> String {
+open class FieldValue: NSObject {
+    open class func textValue(_ object: NSObject) -> String {
         var text : String?
-        if object.respondsToSelector(Selector("text")) {
+        if object.responds(to: Selector("text")) {
             if object is UITextField {
                 text = (object as! UITextField).text
             }else if object is UITextView {

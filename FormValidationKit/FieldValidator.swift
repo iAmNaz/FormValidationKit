@@ -9,22 +9,22 @@
 import UIKit
 
 //An object to validate a field
-public class FieldValidator: NSObject {
-    private var iterator: ValidatorIterator?
-    private var validators : Array<Validator>?
-    private var validator : Validator?
-    private var evaluatedValue: AnyObject?
-    private var fieldView: NSObject?
-    private var nextFieldValidator: FieldValidator?
-    private var formValidator: FormValidator?
-    private var validationErrorHint: ValidationError?
-    private var errorHints: Array<String>?
-    private var fieldInput : () -> AnyObject?
-    public var delegate: FieldValidatorDelegate?
+open class FieldValidator: NSObject {
+    fileprivate var iterator: ValidatorIterator?
+    fileprivate var validators : Array<Validator>?
+    fileprivate var validator : Validator?
+    fileprivate var evaluatedValue: AnyObject?
+    fileprivate var fieldView: NSObject?
+    fileprivate var nextFieldValidator: FieldValidator?
+    fileprivate var formValidator: FormValidator?
+    fileprivate var validationErrorHint: ValidationError?
+    fileprivate var errorHints: Array<String>?
+    fileprivate var fieldInput : () -> AnyObject?
+    open var delegate: FieldValidatorDelegate?
     
     
     public init(rules: Array<Validator>, addValidator: FieldValidator?,
-        form: FormValidator, inputValue: () -> AnyObject) {
+        form: FormValidator, inputValue: @escaping () -> AnyObject) {
         //super.init()
         iterator = ValidatorIterator(listItems: rules)
         fieldInput = inputValue
@@ -59,7 +59,7 @@ public class FieldValidator: NSObject {
         }
     }
     
-    public func value() -> AnyObject {
+    open func value() -> AnyObject {
         return fieldInput()!
     }
 }

@@ -7,8 +7,32 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
-public class ValidatorIterator: NSObject, IteratorNZ {
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
+
+open class ValidatorIterator: NSObject, IteratorNZ {
     var mutableList: Array<Validator>?
     var position: Int
     
@@ -19,7 +43,7 @@ public class ValidatorIterator: NSObject, IteratorNZ {
     
     func next() -> Validator {
         let object = mutableList?[position]
-        position++;
+        position += 1;
         return object!;
     }
     
@@ -31,7 +55,7 @@ public class ValidatorIterator: NSObject, IteratorNZ {
         }
     }
     
-    public func reset() {
+    open func reset() {
         position = 0
     }
 }

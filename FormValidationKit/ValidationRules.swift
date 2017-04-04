@@ -7,11 +7,57 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
 
 
-public class StringUtility: NSObject {
-    public class func stringIsNotEmpty(str: String) -> Bool {
-        let cleanString = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+
+open class StringUtility: NSObject {
+    open class func stringIsNotEmpty(_ str: String) -> Bool {
+        let cleanString = str.trimmingCharacters(in: CharacterSet.whitespaces)
         if cleanString.isEmpty {
             return false
         }
@@ -19,55 +65,55 @@ public class StringUtility: NSObject {
     }
 }
 
-public class RegextUtility: NSObject {
-    public class func isValidFormat(regEx:String, str:String) -> Bool {
+open class RegextUtility: NSObject {
+    open class func isValidFormat(_ regEx:String, str:String) -> Bool {
         let emailRegEx = regEx
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        let result = emailTest.evaluateWithObject(str)
+        let result = emailTest.evaluate(with: str)
         return result
     }
 }
 
-public class NotRequired: NSObject, Validator {
-    public var error: ValidationError?
+open class NotRequired: NSObject, Validator {
+    open var error: ValidationError?
     
     public init(validationError: ValidationError) {
         error = validationError
     }
     
-    public func validate(value: AnyObject) -> Bool {
+    open func validate(_ value: AnyObject) -> Bool {
         return true
     }
     
-    public func validationError() {
+    open func validationError() {
         print("Field is required")
     }
 }
 
-public class Required: NSObject, Validator {
-    public var error: ValidationError?
+open class Required: NSObject, Validator {
+    open var error: ValidationError?
     
     public init(validationError: ValidationError) {
         error = validationError
     }
     
-    public func validate(value: AnyObject) -> Bool {
+    open func validate(_ value: AnyObject) -> Bool {
         return StringUtility.stringIsNotEmpty(value as! String)
     }
     
-    public func validationError() {
+    open func validationError() {
         print("Field is required")
     }
 }
 
-public class Email: NSObject, Validator {
-    public var error: ValidationError?
+open class Email: NSObject, Validator {
+    open var error: ValidationError?
     
     public init(validationError: ValidationError) {
         error = validationError
     }
     
-    public func validate(value: AnyObject) -> Bool {
+    open func validate(_ value: AnyObject) -> Bool {
         let string : String = value as! String
         
         //only validate if the field is not empty
@@ -78,13 +124,13 @@ public class Email: NSObject, Validator {
         }
     }
 
-    public func validationError() {
+    open func validationError() {
         print("Text is not E-mail")
     }
 }
 
-public class MatchesField: NSObject, Validator {
-    public var error: ValidationError?
+open class MatchesField: NSObject, Validator {
+    open var error: ValidationError?
     var compareValue: String?
     var compareWithField: FieldValidator?
     
@@ -93,18 +139,18 @@ public class MatchesField: NSObject, Validator {
         error = validationError
     }
     
-    public func validate(value: AnyObject) -> Bool {
+    open func validate(_ value: AnyObject) -> Bool {
         return value as! String == (compareWithField!.value() as! String) && StringUtility.stringIsNotEmpty(value as! String)
     }
     
-    public func validationError() {
+    open func validationError() {
         print("Fields do not match")
     }
 }
 
 
-public class MinimumLength: NSObject, Validator {
-    public var error: ValidationError?
+open class MinimumLength: NSObject, Validator {
+    open var error: ValidationError?
     var minLength: Int?
     
     public init(minimumLength: Int, validationError: ValidationError) {
@@ -112,7 +158,7 @@ public class MinimumLength: NSObject, Validator {
         error = validationError
     }
     
-    public func validate(value: AnyObject) -> Bool {
+    open func validate(_ value: AnyObject) -> Bool {
         let string : String = value as! String
         if string.isEmpty {
             return true
@@ -121,13 +167,13 @@ public class MinimumLength: NSObject, Validator {
         }
     }
     
-    public func validationError() {
+    open func validationError() {
         print("Minimum length not met")
     }
 }
 
-public class MaximumLength: NSObject, Validator {
-    public var error: ValidationError?
+open class MaximumLength: NSObject, Validator {
+    open var error: ValidationError?
     var maxLength: Int?
     
     public init(maximumLength: Int, validationError: ValidationError) {
@@ -135,7 +181,7 @@ public class MaximumLength: NSObject, Validator {
         error = validationError
     }
     
-    public func validate(value: AnyObject) -> Bool {
+    open func validate(_ value: AnyObject) -> Bool {
         let string : String = value as! String
         if string.isEmpty {
             return true
@@ -144,91 +190,91 @@ public class MaximumLength: NSObject, Validator {
         }
     }
     
-    public func validationError() {
+    open func validationError() {
         print("Max length not met")
     }
 }
 
-public class ExactLength: NSObject, Validator  {
-    public var error: ValidationError?
+open class ExactLength: NSObject, Validator  {
+    open var error: ValidationError?
     var exactLength: Int?
     public init(expectedLength: Int, validationError: ValidationError) {
         exactLength = expectedLength
         error = validationError
     }
     
-    public func validate(value: AnyObject) -> Bool {
+    open func validate(_ value: AnyObject) -> Bool {
         return (value as! String).characters.count == exactLength
     }
     
-    public func validationError() {
+    open func validationError() {
         print("Length not as expected")
     }
 }
 
-public class GreaterThan: NSObject, Validator  {
-    public var error: ValidationError?
+open class GreaterThan: NSObject, Validator  {
+    open var error: ValidationError?
     var greaterVal: Int?
     public init(greaterValue: Int, validationError: ValidationError) {
         greaterVal = greaterValue
         error = validationError
     }
     
-    public func validate(value: AnyObject) -> Bool {
+    open func validate(_ value: AnyObject) -> Bool {
         return Int(value as! String)  > greaterVal!
     }
     
-    public func validationError() {
+    open func validationError() {
         print("Value not greater than number")
     }
 }
 
-public class LessThan: NSObject, Validator  {
-    public var error: ValidationError?
+open class LessThan: NSObject, Validator  {
+    open var error: ValidationError?
     var lessVal: Int?
     public init(lessValue: Int, validationError: ValidationError) {
         lessVal = lessValue
         error = validationError
     }
     
-    public func validate(value: AnyObject) -> Bool {
+    open func validate(_ value: AnyObject) -> Bool {
         return Int(value as! String) < lessVal
     }
     
-    public func validationError() {
+    open func validationError() {
         print("Value not less than number")
     }
 }
 
-public class Numeric: NSObject, Validator  {
-    public var error: ValidationError?
+open class Numeric: NSObject, Validator  {
+    open var error: ValidationError?
     
     public init(validationError: ValidationError) {
         error = validationError
     }
     
-    public func validate(value: AnyObject) -> Bool {
+    open func validate(_ value: AnyObject) -> Bool {
         return Int(value as! String) != nil
     }
-    public func validationError() {
+    open func validationError() {
         print("Value is not numeric")
     }
 }
 
-public class Decimal: NSObject, Validator  {
-    public var error: ValidationError?
+open class Decimal: NSObject, Validator  {
+    open var error: ValidationError?
     
     public init(validationError: ValidationError) {
         error = validationError
     }
     
-    public func validate(value: AnyObject) -> Bool {
+    open func validate(_ value: AnyObject) -> Bool {
         let str = value as! String
-        let scanner = NSScanner(string: str)
+        let scanner = Scanner(string: str)
         return scanner.scanFloat(nil)
     }
     
-    public func validationError() {
+    open func validationError() {
         print("Value is not a coke float")
     }
 }

@@ -8,25 +8,25 @@
 
 import UIKit
 
-public class FormValidator: NSObject, FormValidation {
-    public var initialValidator : FieldValidator?
+open class FormValidator: NSObject, FormValidation {
+    open var initialValidator : FieldValidator?
     var errors: Int = 0
-    public var delegate: FormValidationDelegate?
+    open var delegate: FormValidationDelegate?
     
     public override init() {
         super.init()
     }
     
-    public func validate() {
+    open func validate() {
         errors = 0
         initialValidator?.validate()
     }
     
-    public func addFieldError() {
-        ++errors
+    open func addFieldError() {
+        errors += 1
     }
     
-    public func submit() {
+    open func submit() {
         validate()
         
         if errors > 0 {
